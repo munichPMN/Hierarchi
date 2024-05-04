@@ -12,7 +12,8 @@ var Hierarchi = (function () {
       this.data = options.data;
       this.selectors = options.selectors;
       this.placeholders = options.placeholders || [];
-      this.defaults = options.defaults || []; // New defaults parameter
+      this.defaults = options.defaults || [];
+      this.isSort = options.sort;
       this.populateSelects();
       this.disableSelectsFromIndex(1);
     }
@@ -30,12 +31,23 @@ var Hierarchi = (function () {
     populateOptions(selectElement, data, placeholder) {
       selectElement.innerHTML = `<option value='' selected disabled>${placeholder || "Select"}</option>`;
       selectElement.disabled = false;
-      for (const key in data) {
-        if (data.hasOwnProperty(key)) {
+
+      if (this.isSort) {
+        const sortedKeys = Object.keys(data).sort((a, b) => a.localeCompare(b));
+        sortedKeys.forEach((key) => {
           const option = document.createElement("option");
           option.value = key;
           option.text = key;
           selectElement.appendChild(option);
+        });
+      } else {
+        for (const key in data) {
+          if (data.hasOwnProperty(key)) {
+            const option = document.createElement("option");
+            option.value = key;
+            option.text = key;
+            selectElement.appendChild(option);
+          }
         }
       }
     }
@@ -62,7 +74,7 @@ var Hierarchi = (function () {
             this.placeholders[nextIndex],
           );
           if (nextSelectElement.value !== "") {
-            this.updateSelects(nextIndex, nextSelectElement.value); // Recursive call for further selects
+            this.updateSelects(nextIndex, nextSelectElement.value);
           }
         } else {
           nextSelectElement.disabled = false;
@@ -101,12 +113,15 @@ var Hierarchi = (function () {
       }
     }
   }
+
+  // For select2
   class Select2 {
     constructor(options) {
       this.data = options.data;
       this.selectors = options.selectors;
       this.placeholders = options.placeholders || [];
       this.defaults = options.defaults || [];
+      this.isSort = options.sort;
       this.populateSelects();
       this.disableSelectsFromIndex(1);
     }
@@ -128,9 +143,17 @@ var Hierarchi = (function () {
       selectElement.append(
         `<option value='' disabled selected>${placeholder || "Select"}</option>`,
       );
-      for (const key in data) {
-        if (data.hasOwnProperty(key)) {
+
+      if (this.isSort) {
+        const sortedKeys = Object.keys(data).sort((a, b) => a.localeCompare(b));
+        sortedKeys.forEach((key) => {
           selectElement.append(`<option value='${key}'>${key}</option>`);
+        });
+      } else {
+        for (const key in data) {
+          if (data.hasOwnProperty(key)) {
+            selectElement.append(`<option value='${key}'>${key}</option>`);
+          }
         }
       }
     }
