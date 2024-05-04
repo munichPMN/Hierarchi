@@ -4,11 +4,11 @@ Hierarchi is a JavaScript library for creating hierarchical dropdown menus. It p
 
 ## ✨ Features
 
-* [x] **Hierarchical Dropdowns**\
+- **Hierarchical Dropdowns**\
   Create dropdown menus with multiple levels of hierarchy.
-* [x] **Customizable**\
+- **Customizable**\
   Easily customize placeholders, default values, and sorting options.
-* [x] **Supports Select2**\
+- **Supports Select2**\
   Seamlessly integrate with the Select2 library for enhanced dropdown functionality.
 
 ## 📦 Installation
