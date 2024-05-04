@@ -2,7 +2,7 @@
  * Hierarchi
  * Version: 0.1.0
  * Author: Pongpanot Chantana
- * GitHub: https://github.com/munichPMN/AddressSelector/
+ * GitHub: https://github.com/munichPMN/Hierarchi/
  * Description: JavaScript Library for creating hierarchical dropdown menus.
  */
 
