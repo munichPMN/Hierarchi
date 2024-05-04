@@ -12,6 +12,7 @@ var Hierarchi = (function () {
       this.data = options.data;
       this.selectors = options.selectors;
       this.placeholders = options.placeholders || [];
+      this.defaults = options.defaults || []; // New defaults parameter
       this.populateSelects();
       this.disableSelectsFromIndex(1);
     }
@@ -77,13 +78,29 @@ var Hierarchi = (function () {
     }
 
     disableSelectsFromIndex(startIndex) {
+      const fselectElement = document.querySelector(this.selectors[0]);
+      if (typeof this.defaults[0] !== "undefined" && this.defaults[0] !== "") {
+        for (var i = 0; i < fselectElement.options.length; i++) {
+          console.log(fselectElement);
+          if (fselectElement.options[i].value === this.defaults[0]) {
+            fselectElement.options[i].selected = true;
+            break;
+          }
+        }
+      }
       for (let i = startIndex; i < this.selectors.length; i++) {
         const selectElement = document.querySelector(this.selectors[i]);
+        selectElement.innerHTML = `<option value='' selected disabled>${this.placeholders[i] || "Select"}</option>`;
+        if (
+          typeof this.defaults[0] !== "undefined" &&
+          this.defaults[0] !== ""
+        ) {
+          selectElement.innerHTML = `<option value='' selected>${this.defaults[i] || "Select"}</option>`;
+        }
         selectElement.disabled = true;
       }
     }
   }
-
   return {
     Select: Select,
   };
