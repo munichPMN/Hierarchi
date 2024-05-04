@@ -93,7 +93,6 @@ var Hierarchi = (function () {
       const fselectElement = document.querySelector(this.selectors[0]);
       if (typeof this.defaults[0] !== "undefined" && this.defaults[0] !== "") {
         for (var i = 0; i < fselectElement.options.length; i++) {
-          console.log(fselectElement);
           if (fselectElement.options[i].value === this.defaults[0]) {
             fselectElement.options[i].selected = true;
             break;
@@ -178,7 +177,6 @@ var Hierarchi = (function () {
         data = data[$(this.selectors[i]).val()];
       }
       if (data) {
-        console.log(typeof data);
         if (typeof data === "object") {
           this.populateOptions(
             nextSelectElement,
